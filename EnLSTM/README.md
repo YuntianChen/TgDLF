@@ -1,6 +1,6 @@
 # EnLSTM 
 Ensemble long short-term memory is a gradient-free neural network that combines ensemble neural network and long short-term memory.
-(please refer to the project of EnLSTM for more details: )
+(please refer to the project of EnLSTM for more details: https://github.com/YuntianChen/EnLSTM)
 
 This is part of implmentation of the paper [Ensemble long short-term memory (EnLSTM) network](https://arxiv.org/abs/2004.13562) by Yuantian Chen, Dongxiao Zhang, and Yuanqi Cheng.
 
