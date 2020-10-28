@@ -4,12 +4,21 @@ Theory-guided deep-learning load forecasting is a short-term load forecasting mo
 The model can predict future load based on historical load, weather forecast data, and the calendar effect. Specifically, the grid load is first converted into a load ratio to avoid the impact of different data distributions in different time periods in the same district. The load ratio is then decomposed into dimensionless trends that can be calculated in advance based on domain knowledge, and local fluctuations that are estimated by EnLSTM (please refer to [the code of EnLSTM](https://github.com/YuntianChen/EnLSTM) and [the paper of EnLSTM](https://arxiv.org/ftp/arxiv/papers/2004/2004.13562.pdf)). 
 
 
+
+
+
+
+
 # The guide for TgDLF:
 
 
 
+
+
+
+
+
 # The guide for EnLSTM:
-# EnLSTM
 Ensemble long short-term memory is a gradient-free neural network that combines ensemble neural network and long short-term memory.
 
 This is part of implmentation of the paper [Ensemble long short-term memory (EnLSTM) network](https://arxiv.org/abs/2004.13562) by Yuantian Chen, Dongxiao Zhang, and Yuanqi Cheng.
