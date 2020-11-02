@@ -12,18 +12,18 @@ import torch
 import pandas as pd
 from scipy import signal
 # hyper parameters
-use_forcast_weather = 0
+use_forcast_weather = 1 # whether to use the forecast data, 1 means True, 0 means False
 delta_weather = 0
 use_filter = 1 # 对获得的Dimensionless trend进行低通滤波
 
 use_ratio = 1 # dimensionless ratio
 use_mean_ratio = 1
-use_different_mean_ratio = 0 # 各个区用不同的ratio
-use_CV_ratio = 1 # 使用交叉检验中的ratio
+use_different_mean_ratio = 0 # 各个区用不同的ratio (this indicates that each district only uses its own dimensionless trend)
+use_CV_ratio = 1 # 使用交叉检验中的ratio (this indicates that different groups have different dimensionless trends, and the districts within each group use the same dimensionless trend)
 
 use_weather_error_test = 0 # 此时只有test有误差
-weather_error_test = 0.60
-use_weather_error_train = 0 # 此时只有train有误差
+weather_error_test = 0.0
+use_weather_error_train = 1 # 此时只有train有误差
 weather_error_train = 0.05
 
 def ave_ratio (data_origin, use_filter):    
