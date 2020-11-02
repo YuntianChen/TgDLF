@@ -15,7 +15,25 @@ The dataset used in this example contains data files formated as .csv files with
  ```python
  text = TextDataset()
 ```
+### Experiment settings for dataset
+these settings are used for the experiments in [the paper of TgDLF](https://www.enerarxiv.org/page/thesis.html?id=2022)
+these parameters do not need to be changed in the applications
+```python
+use_forcast_weather = 0 # whether to use the forecast data, 1 means True, 0 means False
+use_filter = 1 # low pass filter for the dimensionless trend
 
+use_ratio = 1 # whether to use dimensionless ratio
+use_mean_ratio = 1 # Whether to use the averaged ratio as the dimensionless ratio (this is only a naive method to determine the dimensionless trend)
+use_different_mean_ratio = 0 # whether to use different ratio for different districts (this indicates that each district only uses its own dimensionless trend)
+use_CV_ratio = 1 # whether to use different ratio for different groups of districts (this indicates that different groups have different dimensionless trends, and the districts within each group use the same dimensionless trend)
+
+use_weather_error_test = 0 # adding error to the test dataset
+weather_error_test = 0.60 # the scale of error
+use_weather_error_train = 0 # adding error to the training dataset
+weather_error_train = 0.05 # the scale of error
+```
+
+---
 ### Neural Network Definition
 
 ```python
