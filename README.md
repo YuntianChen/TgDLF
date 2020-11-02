@@ -95,9 +95,9 @@ self.predict_len = int(24 * 1)
 # Network setting
 self.T = 1
 self.ne = 100
-self.use_annual = 1
-self.use_quarterly = 0
-self.use_monthly = 0      
+self.use_annual = 1 # the resolution of date information, whether to use the two-dimensional one-hot code (whether the date is in summer) as an input feature
+self.use_quarterly = 0 # the resolution of date information, whether to use the four-dimensional one-hot code (corresponds to the four quarters) as an input feature
+self.use_monthly = 0 # the resolution of date information, whether to use the 12-dimensional one-hot code (corresponds to the 12 monthes) as an input feature     
 self.input_dim = 9  # annual:9; quarterly:12; monthly:20
 self.hid_dim = 30  # number of hidden neurons
 self.num_layer = 1  # number of LSTM layer in the network
