@@ -3,14 +3,100 @@ Theory-guided deep-learning load forecasting is a short-term load forecasting mo
 
 The model can predict future load based on historical load, weather forecast data, and the calendar effect. Specifically, the grid load is first converted into a load ratio to avoid the impact of different data distributions in different time periods in the same district. The load ratio is then decomposed into dimensionless trends that can be calculated in advance based on domain knowledge, and local fluctuations that are estimated by EnLSTM (please refer to [the code of EnLSTM](https://github.com/YuntianChen/EnLSTM) and [the paper of EnLSTM](https://arxiv.org/ftp/arxiv/papers/2004/2004.13562.pdf)). 
 
-
-
-
-
-
-
 # The guide for TgDLF:
+## Data Preperation and Model Definition
 
+### Dataset Decription
+
+The dataset used in this example contains data files formated as .csv files with header of feature names.
+
+### Loading dataset
+
+ ```python
+ text = TextDataset()
+```
+
+### Neural Network Definition
+
+```python
+class netLSTM_full(nn.Module):
+    def __init__(self):
+        super(netLSTM_full, self).__init__()
+        self.lstm = nn.LSTM(config.input_dim, config.hid_dim,
+                            config.num_layer, batch_first=True, dropout=config.drop_out)
+        self.fc2 = nn.Linear(config.hid_dim, int(config.hid_dim/2))
+        self.fc3 = nn.Linear(int(config.hid_dim/2), config.output_dim)
+        # self.fc4 = nn.Linear(int(config.hid_dim/2), int(config.hid_dim/2))
+        self.bn = nn.BatchNorm1d(int(config.hid_dim / 2))
+    def forward(self, x, hs=None, use_gpu=config.use_gpu):
+        batch_size = x.size(0)
+        if hs is None:
+            h = Variable(t.zeros(config.num_layer, batch_size, config.hid_dim))
+            c = Variable(t.zeros(config.num_layer, batch_size, config.hid_dim))
+            hs = (h, c)
+        if use_gpu:
+            hs = (hs[0].cuda(), hs[1].cuda())
+        out, hs_0 = self.lstm(x, hs)  # input：batch_size * train_len * input_dim；output：batch_size * train_len * hid_dim
+        # out = out[:, -24:, :]
+        out = out.contiguous()
+        out = out.view(-1, config.hid_dim)  
+        # normal net
+        out = F.relu(self.bn(self.fc2(out)))
+        # out = F.relu(self.fc4(out))
+        out = self.fc3(out)
+
+        return out, hs_0
+```
+
+---
+
+## Requirements
+
+The program is written in Python, and uses pytorch, scipy. A GPU is necessary, the ENN algorithm can only be running when CUDA is available.
+
+- Install PyTorch(pytorch.org)
+- Install CUDA
+- `pip install -r requirements.txt`
+
+## Training
+
+- The training parameters like learning rate can be adjusted in configuration.py
+
+```python
+self.ERROR_PER = 0.02
+self.path = 'E' + self.experiment_ID
+
+self.GAMMA = 10
+self.drop_last = False
+# dataset setting
+self.test_pro = 0.3
+self.total_well_num = 14
+self.train_len = int(24*4)  # length of the training data, 24*4 represents 4 days
+self.predict_len = int(24 * 1)
+# Network setting
+self.T = 1
+self.ne = 100
+self.use_annual = 1
+self.use_quarterly = 0
+self.use_monthly = 0      
+self.input_dim = 9  # annual:9; quarterly:12; monthly:20
+self.hid_dim = 30  # number of hidden neurons
+self.num_layer = 1  # number of LSTM layer in the network
+self.drop_out = 0.3
+self.output_dim = 1
+# Trainting setting
+self.batch_size = 512
+self.num_workers = 0
+self.learning_rate = 1e-3
+self.weight_decay = 1e-4
+self.display_step = 10
+```
+
+- To train a model, install the required module and run train_decay_loss.py, the result will be saved in the experiment folder.
+
+```bash
+python train_decay_loss.py
+```
 
 
 
