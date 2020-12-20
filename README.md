@@ -1,21 +1,39 @@
 # TgDLF
 Theory-guided deep-learning load forecasting is a short-term load forecasting model that combines domain knowledge and machine learning algorithms. (see [the paper of TgDLF](https://www.enerarxiv.org/page/thesis.html?id=2022))
 
-The model can predict future load based on historical load, weather forecast data, and the calendar effect. Specifically, the grid load is first converted into a load ratio to avoid the impact of different data distributions in different time periods in the same district. The load ratio is then decomposed into dimensionless trends that can be calculated in advance based on domain knowledge, and local fluctuations that are estimated by EnLSTM (please refer to [the code of EnLSTM](https://github.com/YuntianChen/EnLSTM) and [the paper of EnLSTM](https://arxiv.org/ftp/arxiv/papers/2004/2004.13562.pdf)). 
+The model can predict future load based on historical load, weather forecast data, and the calendar effect. Specifically, the grid load is first converted into a load ratio to avoid the impact of different data distributions in different time periods in the same district. The load ratio is then decomposed into dimensionless trends that can be calculated in advance based on domain knowledge, and local fluctuations that are estimated by EnLSTM (please refer to [the code of EnLSTM](https://github.com/YuntianChen/EnLSTM) and [the paper of EnLSTM](https://arxiv.org/ftp/arxiv/papers/2004/2004.13562.pdf)). EnLSTM combines the advantages of ensemble neural network (ENN) and long short-term memory (LSTM), that is, it has the advantages of small data learning (few-shot learning), and can handle time series data problems, which are desirable for load forecasting problems.
 
 If you encounter any problems in using the code, please contact Yuntian Chen: cyt_cn@126.com.
+
+
 # The guide for TgDLF:
 ## Data Preperation and Model Definition
 
 ### Dataset Decription
 
 The dataset used in this example contains data files formated as .csv files with header of feature names.
+The original data file of this study is a 32616*21 matrix. The 32616 sample points correspond to hourly observations of 1359 days (1359*24=32616). The 21 features are:
+Time, e.g. 1/2/2008  00:00:00
+Load ratio, e.g. 0.9294
+Temperature, e.g. -1.8
+Humidity, e.g. 26
+Wind speed, e.g. 1.8
+Precipitation, e.g. 0
+Whether it is weekend, e.g. 0
+Whether it is Jan./Feb./…/Nov./Dec. (a 12-dimensional one-hot-code)
+Whether it is Saturday, e.g. 0
+Whether it is Monday, e.g. 0
+
+The “grid_data_v2.py” shows the data processing details. And the line 229 of the code file “grid_data_v2.py” shows the final processed dataset, which is depends on the experiment setting (such as whether use the forecast data).
+
+It should be noted that although various features are involved in TgDLF, it is theoretically compatible with any numerical feature. Users can select features based on actual conditions (such as the availability of data). Of course, different feature combinations will affect the accuracy of the model. 
 
 ### Loading dataset
 
  ```python
  text = TextDataset()
 ```
+
 ### Experiment settings for dataset
 These settings are used for the experiments in [the paper of TgDLF](https://www.enerarxiv.org/page/thesis.html?id=2022)
 These parameters do not need to be changed in the applications, and the default values should be OK.
