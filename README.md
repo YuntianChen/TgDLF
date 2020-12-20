@@ -14,18 +14,7 @@ If you encounter any problems in using the code, please contact Yuntian Chen: cy
 The dataset used in this example contains data files formated as .csv files with header of feature names.
 The original data file of this study is a 32616*21 matrix. The 32616 sample points correspond to hourly observations of 1359 days (1359*24=32616). The 21 features are:
 
-Time, e.g. 1/2/2008  00:00:00;
-
-Load ratio, e.g. 0.9294; 
-
-Temperature, e.g. -1.8; 
-
-Humidity, e.g. 26; 
-
-Wind speed, e.g. 1.8; 
-
-Precipitation, e.g. 0; 
-
+Time, e.g. 1/2/2008  00:00:00; Load ratio, e.g. 0.9294; Temperature, e.g. -1.8; Humidity, e.g. 26; Wind speed, e.g. 1.8; Precipitation, e.g. 0; 
 Whether it is weekend, e.g. 0; 
 Whether it is Jan./Feb./…/Nov./Dec. (a 12-dimensional one-hot-code); 
 Whether it is Saturday, e.g. 0; 
