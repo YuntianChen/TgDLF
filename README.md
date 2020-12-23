@@ -230,7 +230,7 @@ python train.py
 
 
 # Model_files
-For the model files, please refer to [model files](https://github.com/YuntianChen/EnLSTM/tree/main/model_files).
+For the model files, please refer to [model files](https://github.com/YuntianChen/EnLSTM/tree/main/model_files). It should be mentioned that these files are for the well log generation problems in the EnLSTM project, not for the load forecasting problem in this project.
 
 The folders in the “Model_files” are the supporting materials for the EnLSTM, including experiment results and model files for each experiment. There are five experiment folders and one Pytorch code in the “Model_files”. Each experiment file includes 14 trained neural network model files and three MSE loss files.
 
