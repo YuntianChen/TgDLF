@@ -7,6 +7,16 @@ If you encounter any problems in using the code, please contact Yuntian Chen: cy
 
 
 # The guide for TgDLF:
+## Content
+grid_configuration.py:
+grid_data_v2.py:
+train_decay_loss.py:
+enn: 
+grid_LSTM.py:
+data_summary.py:
+arima.py:
+
+
 ## Data Preperation and Model Definition
 
 ### Dataset Decription
