@@ -4,6 +4,12 @@ Created on Fri Feb  8 22:10:13 2019
 
 @author: Yuntian Chen
 """
+# Notes:
+# ARMA and ARIMA are autoregressive models, and historical data of the districts to be predicted are required as training data. 
+# However, the historical data of the target districts are not available in this study, and thus the autoregressive models cannot be used directly. 
+# In order to fairly compare the performance of ARMA and ARIMA in the experiment, we used an extended ARMA and ARIMA in the experiment. 
+# We first train an ARMA or ARIMA model in each district in the training data, and then fuse the model parameters and load the averaged model parameters to the model of the target district for prediction.
+
 import numpy as np
 from scipy import stats
 import pandas as pd
