@@ -372,7 +372,7 @@ def run():
 
 
 if __name__ == '__main__':
-    #run()#
+    run()#
     model = netLSTM_full()
     with torch.no_grad():
         model = model.cuda()
