@@ -106,23 +106,23 @@ def train(net_enn, input_, target):
     return net_enn, train_losses.get_latest(mean=True), pred_history.get_latest(mean=False)
 
 
-def predict(data, params=None, model_predict=None):
-    result = []
-    input_ = torch.tensor(data)
-    input_ = Variable(input_.view(1, len(data), config.input_dim).float()).cuda()
-    if params is not None:
-        model_predict.set_parameter(params)
-    i = 0
-    while i <= len(data) - config.train_len:
-        pred = model_predict.output(input_[:, i:i+config.train_len, :])
-        result.append(pred[:, -24:, :])
-        print('predicting: {} to {}'.format(i, i + config.train_len))
-        i += 24
-    #save_var(result, 'result')
-    return torch.cat(result, dim=1)
+# def predict(data, params=None, model_predict=None): # 每次预测24h，然后拼接在一起获得预测结果
+#     result = []
+#     input_ = torch.tensor(data)
+#     input_ = Variable(input_.view(1, len(data), config.input_dim).float()).cuda()
+#     if params is not None:
+#         model_predict.set_parameter(params)
+#     i = 0
+#     while i <= len(data) - config.train_len:
+#         pred = model_predict.output(input_[:, i:i+config.train_len, :])
+#         result.append(pred[:, -24:, :])
+#         print('predicting: {} to {}'.format(i, i + config.train_len))
+#         i += 24
+#     #save_var(result, 'result')
+#     return torch.cat(result, dim=1)
 
 
-def predict_full(data, params=None, model_predict=None):
+def predict_full(data, params=None, model_predict=None): # 直接对待预测区域全序列预测，不进行拼接处理
     input_ = torch.tensor(data)
     input_ = Variable(input_.view(1, len(data), config.input_dim).float()).cuda()
     if params is not None:
