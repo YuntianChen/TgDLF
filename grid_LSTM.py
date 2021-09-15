@@ -12,7 +12,7 @@ from grid_configuration import config
 import torch.nn.functional as F  
 
 
-class netLSTM(nn.Module):
+class netLSTM(nn.Module): # 配合predict 函数，因为有out = out[:, -config.predict_len:, :]，所以是输出一段（天）的数据预测结果
     def __init__(self):
         super(netLSTM, self).__init__()
         self.lstm = nn.LSTM(config.input_dim, config.hid_dim, 
@@ -48,7 +48,7 @@ class netLSTM(nn.Module):
         return out, hs_0
 
 
-class netLSTM_full(nn.Module):
+class netLSTM_full(nn.Module): # 配合 predict_full函数，直接输出全部序列结果。
     def __init__(self):
         super(netLSTM_full, self).__init__()
         self.lstm = nn.LSTM(config.input_dim, config.hid_dim,
