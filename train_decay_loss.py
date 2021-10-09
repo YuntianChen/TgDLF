@@ -372,8 +372,8 @@ def run():
 
 
 if __name__ == '__main__':
-    run()#
-    model = netLSTM_full()
+    run() # only include the training process based on the netLSTM model.
+    model = netLSTM_full() # netLSTM and netLSTM_full share the weights and bias. The only difference between these models is the output length.
     with torch.no_grad():
         model = model.cuda()
     net_enn = enn.ENN(model, NE)
