@@ -18,7 +18,7 @@ use_filter = 1 # 对获得的Dimensionless trend进行低通滤波
 
 use_ratio = 1 # dimensionless ratio
 use_mean_ratio = 1
-use_different_mean_ratio = 0 # 各个区用不同的ratio (this indicates that each district only uses its own dimensionless trend)
+use_different_mean_ratio = 0 # 各个区用不同的ratio (this in dicates that each district only uses its own dimensionless trend)
 use_CV_ratio = 1 # 使用交叉检验中的ratio (this indicates that different groups have different dimensionless trends, and the districts within each group use the same dimensionless trend)
 
 use_weather_error_test = 0 # 此时只有test有误差
@@ -191,7 +191,7 @@ class TextDataset(torch.utils.data.Dataset):
         data_output_list = []
         for k in range(14):
             data = data_normal[k] 
-            test_num = data.shape[0] # 获取表的行数
+            test_num = data.shape[0] # 获取表的行数 32616
             # date和weekend可以提前获知，所以滑动到当天对应的值
             next_date = np.zeros((test_num,12))
             next_weekend = np.zeros((test_num,1))
@@ -199,7 +199,7 @@ class TextDataset(torch.utils.data.Dataset):
             next_Mon = np.zeros((test_num,1))
             if use_forcast_weather == True:
                 next_weather = np.zeros((test_num,4))
-            data_output = np.zeros((test_num-24,1))
+            data_output = np.zeros((test_num-24,1)) # 32592 因为在t天的output是t+1，所以output会比test_num少一天24个点（每小时一个点）
             for i in range (test_num-24):
                 next_Sat[i] = data[i + 24, 5]
                 next_Mon[i] = data[i + 24, 6]
