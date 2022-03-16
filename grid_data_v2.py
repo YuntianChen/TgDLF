@@ -41,7 +41,7 @@ def ave_ratio (data_origin, use_filter): # the default value of the dimensionles
         # reshape loads to (num of hours in one week) * (num of weeks)
         delet_ID = np.arange(week_num*168, data_num)
         input_load_del = np.delete( input_load, delet_ID, 0)# 产生整数周的结果
-        input_load_week = input_load_del.reshape(168, week_num) # 168(num of hours in one week) * num of weeks
+        input_load_week = np.array(input_load_del.reshape(week_num, 168)).T # 168(num of hours in one week) * num of weeks
         # calculate the average ratio in one week
         input_load_week_mean = np.mean(input_load_week, axis=1)
         print('original:',np.mean(input_load_week_mean))
